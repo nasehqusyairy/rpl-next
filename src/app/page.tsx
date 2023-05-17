@@ -6,8 +6,6 @@ import { useState } from "react";
 
 function Home() {
 
-  const localStorage = typeof window !== undefined ? window.localStorage : { setItem: () => { }, getItem: () => { } };
-
   const getData = () => {
     const data = localStorage.getItem('todolist')
     return data ? JSON.parse(data) : []
