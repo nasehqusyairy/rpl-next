@@ -6,8 +6,9 @@ import { useState } from "react";
 
 function Home() {
 
+  const localStorage = typeof window !== undefined ? window.localStorage : { setItem: () => { }, getItem: () => { } };
+
   const getData = () => {
-    /* tslint:disable-next-line */
     const data = localStorage.getItem('todolist')
     return data ? JSON.parse(data) : []
   }
@@ -20,7 +21,6 @@ function Home() {
 
     setTaskList([...taskList, { name: task }])
     setTask('')
-    /* tslint:disable-next-line */
     localStorage.setItem('todolist', JSON.stringify(taskList))
   }
 
@@ -28,7 +28,6 @@ function Home() {
     const list = [...taskList]
     list.splice(i, 1)
     setTaskList(list)
-    /* tslint:disable-next-line */
     localStorage.setItem('todolist', JSON.stringify(taskList))
   }
 
