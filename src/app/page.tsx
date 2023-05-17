@@ -1,32 +1,37 @@
 "use client"
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-
+interface TodoList {
+  name: string
+}
 
 function Home() {
 
-  const getData = () => {
-    const data = localStorage.getItem('todolist')
-    return data ? JSON.parse(data) : []
-  }
-
-  const [taskList, setTaskList] = useState(getData());
+  const todolist: TodoList[] = [];
+  const [taskList, setTaskList] = useState(todolist);
   const [task, setTask] = useState('');
+
+  useEffect(() => {
+    const data = localStorage.getItem('todolist')
+    setTaskList(data ? JSON.parse(data) : [])
+  }, [])
+
+  useEffect(() => {
+    localStorage.setItem('todolist', JSON.stringify(taskList))
+  }, [taskList]);
 
   const handleOnsubmit = (e: any) => {
     e.preventDefault()
 
     setTaskList([...taskList, { name: task }])
     setTask('')
-    localStorage.setItem('todolist', JSON.stringify(taskList))
   }
 
   const remove = (i: number) => {
     const list = [...taskList]
     list.splice(i, 1)
     setTaskList(list)
-    localStorage.setItem('todolist', JSON.stringify(taskList))
   }
 
   return (
