@@ -2,9 +2,12 @@
 
 import { useState } from "react";
 
+
+
 function Home() {
 
   const getData = () => {
+    /* tslint:disable-next-line */
     const data = localStorage.getItem('todolist')
     return data ? JSON.parse(data) : []
   }
@@ -14,9 +17,10 @@ function Home() {
 
   const handleOnsubmit = (e: any) => {
     e.preventDefault()
-    
+
     setTaskList([...taskList, { name: task }])
     setTask('')
+    /* tslint:disable-next-line */
     localStorage.setItem('todolist', JSON.stringify(taskList))
   }
 
@@ -24,6 +28,7 @@ function Home() {
     const list = [...taskList]
     list.splice(i, 1)
     setTaskList(list)
+    /* tslint:disable-next-line */
     localStorage.setItem('todolist', JSON.stringify(taskList))
   }
 
